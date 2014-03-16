@@ -17,8 +17,10 @@ class RiakObject {
 public:
     RiakObject(RiakClient* client, riak_object* obj);
     ~RiakObject();
+    RiakBinary* getValue();
 private:
     RiakClient *client;
     riak_object* obj;
+    RiakBinary* value;
 };
 #endif

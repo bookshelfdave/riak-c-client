@@ -9,7 +9,7 @@ class RiakBinary {
 public:
     RiakBinary(RiakConfig* cfg, riak_binary* bin);
     ~RiakBinary();
-
+    char* getData();
 private:
     RiakConfig* cfg;
     riak_binary* bin;

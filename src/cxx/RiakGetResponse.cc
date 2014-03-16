@@ -31,3 +31,12 @@ RiakBinary* RiakGetResponse::getVClock() {
 riak_int32_t RiakGetResponse::n() {
     return response->n_content;
 }
+
+RiakObject* RiakGetResponse::getObject(riak_int32_t index) {
+    if(index > response->n_content) {
+        // TODO
+        return 0;
+    } else {
+        return content[index];
+    }
+}

@@ -15,6 +15,7 @@ public:
     bool hasVClock();
     RiakBinary* getVClock();
     riak_int32_t n();
+    RiakObject* getObject(riak_int32_t index);
 private:
     RiakBinary* vclock;
     riak_get_response *response;
