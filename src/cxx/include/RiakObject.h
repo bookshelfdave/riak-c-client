@@ -17,10 +17,34 @@ class RiakObject {
 public:
     RiakObject(RiakClient* client, riak_object* obj);
     ~RiakObject();
-    RiakBinary* getValue();
+    RiakBinary* 	getBucket();
+    riak_boolean_t  hasKey();
+    RiakBinary* 	getKey();
+    RiakBinary* 	getValue();
+    riak_boolean_t  hasCharset();
+    RiakBinary* 	getCharset();
+    riak_boolean_t  hasContentType();
+    RiakBinary* 	getContentType();
+    riak_boolean_t  hasEncoding();
+    RiakBinary* 	getEncoding();
+    riak_boolean_t  hasVTag();
+    RiakBinary* 	VTag();
+
+	/*last_mod
+	last_mod_usecs
+	deleted
+	n_links
+	*/
+
 private:
     RiakClient *client;
     riak_object* obj;
+    RiakBinary* bucket;
+    RiakBinary* key;
     RiakBinary* value;
+    RiakBinary* charset;
+    RiakBinary* content_type;
+    RiakBinary* encoding;
+    RiakBinary* vtag;
 };
 #endif
