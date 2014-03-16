@@ -19,7 +19,16 @@ include_HEADERS =	src/include/riak.h \
 			src/include/riak_object.h \
 			src/include/riak_operation.h \
 			src/include/riak_types.h \
-			src/adapters/riak_libevent.h
+			src/adapters/riak_libevent.h \
+			src/cxx/include/RiakConfig.h \
+			src/cxx/include/RiakBinary.h \
+			src/cxx/include/RiakObject.h \
+			src/cxx/include/RiakConnection.h \
+			src/cxx/include/RiakClient.h \
+			src/cxx/include/RiakBucket.h \
+			src/cxx/include/RiakGetResponse.h
+
+
 msgincludedir =		$(includedir)/messages
 dist_msginclude_DATA =	src/include/messages/riak_2index.h \
 			src/include/messages/riak_delete.h \
@@ -38,6 +47,7 @@ dist_msginclude_DATA =	src/include/messages/riak_2index.h \
 			src/include/messages/riak_set_bucketprops.h \
 			src/include/messages/riak_set_clientid.h
 
+
 lib_LTLIBRARIES =	libriak_c_client-0.5.la
 libriak_c_client_0_5_la_SOURCES = \
 			src/riak.c \
@@ -54,6 +64,13 @@ libriak_c_client_0_5_la_SOURCES = \
 			src/riak_operation.c \
 			src/riak_print.c \
 			src/riak_utils.c \
+			src/cxx/RiakConfig.cc \
+			src/cxx/RiakBinary.cc \
+			src/cxx/RiakObject.cc \
+			src/cxx/RiakConnection.cc \
+			src/cxx/RiakClient.cc \
+			src/cxx/RiakBucket.cc \
+			src/cxx/RiakGetResponse.cc \
 			src/messages/riak_2index.c \
 			src/messages/riak_delete.c \
 			src/messages/riak_error.c \
@@ -98,10 +115,10 @@ EXTRA_DIST =	$(SRCDIR)/include $(SRCDIR)/internal $(SRCDIR)/adapters \
 		$(EXAMPLESDIR)/include/riak_command.h \
 		$(TESTCUNITDIR)/include
 
-bin_PROGRAMS = riak_c_example riak_c_async_example
+bin_PROGRAMS = riak_c_example riak_c_async_example riak_cpp_example
 riak_c_example_SOURCES = examples/example.c \
 			examples/riak_command.c \
-			examples/example_log.c 
+			examples/example_log.c
 
 riak_c_example_CPPFLAGS = \
 			-DUSE_DEBUG -D_RIAK_DEBUG \
@@ -117,12 +134,34 @@ riak_c_example_LDADD = \
 		$(PROTOBUFC_LIBS) \
 		$(PROTOBUF_LIBS)
 
+
+riak_cpp_example_SOURCES = examples/example.cc
+
+riak_cpp_example_CPPFLAGS = \
+				-DUSE_DEBUG -D_RIAK_DEBUG \
+				-I$(SRCDIR)/include \
+				-I$(SRCDIR)/internal \
+				-I$(RIAK_PB)/c \
+				-I$(SRCDIR)/adapters \
+				-I$(SRCDIR) \
+				-Iexamples/include
+
+riak_cpp_example_LDADD = \
+			-lriak_c_client-0.5 \
+			$(PROTOBUFC_LIBS) \
+			$(PROTOBUF_LIBS)
+
+
+
+
+
+
 riak_c_async_example_DEPENDENCIES = libriak_c_client-0.5.la
 
 riak_c_async_example_SOURCES = examples/async_example.c \
             examples/riak_command.c \
             examples/example_call_backs.c \
-            examples/example_log.c 
+            examples/example_log.c
 
 riak_c_async_example_CPPFLAGS = \
             -DUSE_DEBUG -D_RIAK_DEBUG \
