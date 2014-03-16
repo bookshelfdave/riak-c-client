@@ -9,13 +9,14 @@ RiakGetResponse::RiakGetResponse(RiakClient* client, riak_get_response* response
     if(response->has_vclock) {
         vclock = new RiakBinary(client->getRiakConfig(), response->vclock);
     }
-     for(int i = 0; i < response->n_content; i++) {
+    for(int i = 0; i < response->n_content; i++) {
         riak_object* o = response->content[i];
         content.push_back(new RiakObject(client, o));
     }
 }
 
 RiakGetResponse::~RiakGetResponse() {
+    // TODO: erase content
     riak_get_response_free(client->_raw_config(), &response);
     delete(vclock);
 }
