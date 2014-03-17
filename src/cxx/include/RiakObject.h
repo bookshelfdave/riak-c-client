@@ -30,11 +30,22 @@ public:
     riak_boolean_t  hasVTag();
     RiakBinary* 	VTag();
 
-	/*last_mod
-	last_mod_usecs
-	deleted
-	n_links
-	*/
+
+	riak_boolean_t hasLastMod();
+    riak_uint32_t  getLastMod();
+
+    riak_boolean_t hasLastModUSecs();
+    riak_uint32_t  getLastModUSecs();
+    riak_boolean_t hasDeleted();
+    riak_boolean_t getDeleted();
+  	
+  	riak_int32_t   getNLinks();
+    //riak_link    **links;
+
+    riak_int32_t   getNUserMeta();
+    //riak_pair    **usermeta;
+    riak_int32_t   getNIndexs();
+    //riak_pair    **indexes;
 
 private:
     RiakClient *client;

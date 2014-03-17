@@ -18,14 +18,15 @@ RiakGetResponse* RiakBucket::get(const char* key) {
     // to set the basic_quorum & r options
     riak_get_options *get_options = riak_get_options_new(client->_raw_config());
 
+    // freed in ~RiakGetResponse
     riak_get_response *get_response = NULL;
     riak_error err = riak_get(client->getNextConnection()->raw_conn, bucket_bin, key_bin, get_options, &get_response);
     RiakGetResponse* gr = new RiakGetResponse(client, get_response);
-    std::cout << "Got " << riak_get_get_n_content(get_response) << std::endl;
-     // cleanup
-    // riak_get_response_free(cfg, &get_response);
-    // riak_binary_free(cfg, &bucket_bin);
-    // riak_binary_free(cfg, &key_bin);
-    // riak_get_options_free(cfg, &get_options);
+    
+    // TODO: cache bucket_bin 
+    riak_binary_free(client->_raw_config(), &bucket_bin);
+    riak_binary_free(client->_raw_config(), &key_bin);
+    riak_get_options_free(client->_raw_config(), &get_options);
     return gr;
+    
 }

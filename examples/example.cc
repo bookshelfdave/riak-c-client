@@ -11,7 +11,9 @@ int main(int argc, char* argv[]) {
         riak.connect("localhost", "10017");
         RiakBucket *bucket = riak.fetchBucket("footype","foo");
         RiakGetResponse* resp = bucket->get("foo");
-        std::cout << "Data:" << resp->getObject(0)->getValue()->getData() << std::endl;
+        if(resp->n() > 0) {
+            std::cout << "Data:" << resp->getObject(0)->getValue()->getData() << std::endl;
+        }
         delete(bucket);
 
     } catch (RiakException e) {
