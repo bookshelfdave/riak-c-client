@@ -1,10 +1,10 @@
 ## Riak C Client
 
+I'm the original author of the C client. I forked the client from basho-labs as Basho no longer exists. 
 
 # Status
 
-**This project is currently under development and is NOT ready to use in a production environment. Expect
-significant changes to the API.**
+**This project is 100% dead**
 
 ## Current tasks:
 * cleanup around libevent threading (currently broken)
